@@ -7,6 +7,6 @@ openai
 langchain
 pydantic
 bson==0.5.10
-langchain-core==0.1.0
+
 
 
