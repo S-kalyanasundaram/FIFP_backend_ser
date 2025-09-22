@@ -12,6 +12,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi import Body
 from pydantic import BaseModel
 from typing import List, Dict, Optional
+from fastapi.middleware.cors import CORSMiddleware
 
 # -----------------------------
 # Config / ENV
@@ -48,10 +49,9 @@ openai_client = OpenAI(api_key=OPENAI_API_KEY)
 app = FastAPI(title="Finance QA API", version="1.1")
 
 # Enable CORS
-from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://fifp-frontend.onrender.com/"],  # frontend URL
+    allow_origins=["https://fifp-frontend.onrender.com"],  # frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -392,6 +392,7 @@ def rename_session(user_id: str, session_id: str, data: dict = Body(...)):
         {"$set": {"question": new_title}}
     )
     return {"status": "success", "message": "Session renamed"}
+
 
 
 
