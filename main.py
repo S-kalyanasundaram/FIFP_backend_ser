@@ -51,7 +51,7 @@ app = FastAPI(title="Finance QA API", version="1.1")
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],  # frontend URL
+    allow_origins=["https://fifp-frontend.onrender.com/"],  # frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -392,6 +392,7 @@ def rename_session(user_id: str, session_id: str, data: dict = Body(...)):
         {"$set": {"question": new_title}}
     )
     return {"status": "success", "message": "Session renamed"}
+
 
 
 
