@@ -49,6 +49,7 @@ openai_client = OpenAI(api_key=OPENAI_API_KEY)
 app = FastAPI(title="Finance QA API", version="1.1")
 
 # Enable CORS
+from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["https://fifp-frontend.onrender.com"],  # frontend URL
@@ -392,6 +393,7 @@ def rename_session(user_id: str, session_id: str, data: dict = Body(...)):
         {"$set": {"question": new_title}}
     )
     return {"status": "success", "message": "Session renamed"}
+
 
 
 
