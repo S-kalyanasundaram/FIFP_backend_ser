@@ -1,12 +1,10 @@
-fastapi
-uvicorn[standard]
-pymongo
-python-dotenv
-numpy
-openai
-langchain
-pydantic
+fastapi==0.105.3
+uvicorn[standard]==0.23.2
+pydantic==2.6.2
+python-dotenv==1.1.1
+numpy==1.26.3
+pymongo==5.5.0
 bson==0.5.10
-
-
-
+openai==1.29.0
+langchain==0.1.0  # Replace with actual version if you have a specific one
+langchain-core==0.1.0  # Replace with actual version if needed
