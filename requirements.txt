@@ -1,22 +1,8 @@
-fastapi==0.111.0
-uvicorn[standard]==0.30.0
-python-dotenv==1.0.1
-pymongo==4.6.1
-numpy==1.26.4
-openai==1.30.1
-
-# Pydantic v2 depends on pydantic-core (Rust-based)
-# Pin to a wheel version so Render won't compile
-pydantic-core==2.18.2
-pydantic==2.7.1         
-
-# Langchain ecosystem
-langchain==0.2.11
-langchain-core==0.2.11
-langchain-community==0.2.10
-langchain-openai==0.1.7
-
-pydantic-core==2.18.2
-orjson==3.10.3
-
-
+fastapi
+uvicorn[standard]
+pymongo
+python-dotenv
+numpy
+openai
+langchain
+pydantic
