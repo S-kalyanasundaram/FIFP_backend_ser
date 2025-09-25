@@ -52,7 +52,7 @@ app = FastAPI(title="Finance QA API", version="2.0")
 # Enable CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://fifp-frontend.onrender.com"],  # frontend URL
+    allow_origins=["http://localhost:5173"],  # frontend URL
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -240,6 +240,18 @@ def save_chat_history(user_id: str, question: str, answer: str, session_id: Opti
     db[CHAT_HISTORY_COLLECTION].insert_one(chat_entry)
     return session_id
 
+def get_user_name(user_id: str) -> Optional[str]:
+    db = client[DB_NAME]
+    profile = db["profiles"].find_one(
+        {"userId": user_id}, 
+        {"firstName": 1, "lastName": 1, "_id": 0}
+    )
+    if not profile:
+        return None
+    first = profile.get("firstName", "")
+    last = profile.get("lastName", "")
+    return f"{first} {last}".strip()
+
 # -----------------------------
 # API Models
 # -----------------------------
@@ -269,11 +281,19 @@ def load_data(user_id: str):
     if not docs:
         raise HTTPException(status_code=404, detail="No documents found for this user")
     retriever_cache[user_id] = build_local_retriever(docs)
-    
     #return {"status": "success", "message": f"Data loaded for user {user_id}", "doc_count": len(docs)}
     return docs
 
 from mf_recommendation import generate_fund_recommendation
+
+@app.get("/user-name/{user_id}")
+def fetch_user_name(user_id: str):
+    validate_user_id(user_id)
+    user_name = get_user_name(user_id)
+    if not user_name:
+        raise HTTPException(status_code=404, detail="User name not found")
+    return user_name
+
 
 @app.post("/ask")
 def ask_question(req: QuestionRequest):
