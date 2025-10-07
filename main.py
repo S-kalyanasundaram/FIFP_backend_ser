@@ -1,4 +1,5 @@
 #main.py
+#python
 import re
 import os
 import numpy as np
@@ -422,5 +423,6 @@ def rename_session(user_id: str, session_id: str, data: dict = Body(...)):
         {"$set": {"question": new_title}}
     )
     return {"status": "success", "message": "Session renamed"}
+
 
 
